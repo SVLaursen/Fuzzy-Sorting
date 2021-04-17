@@ -1,8 +1,0 @@
-//
-// Created by simon on 4/2/2021.
-//
-
-#ifndef FUZZY_SORTING_QUICKSORTER_H
-#define FUZZY_SORTING_QUICKSORTER_H
-
-#endif //FUZZY_SORTING_QUICKSORTER_H
