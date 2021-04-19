@@ -6,7 +6,7 @@ namespace FuzzySortOfIntervals.Data
     [System.Serializable]
     public struct AlgorithmResults
     {
-        public AlgorithmResults(string name, long memoryBefore, long memoryAfter, long elapsedMilliseconds,
+        public AlgorithmResults(string name, long memoryBefore, long memoryAfter, double elapsedMilliseconds,
             Interval[] dataBefore, Interval[] dataAfter)
         {
             this.name = name;
@@ -21,7 +21,7 @@ namespace FuzzySortOfIntervals.Data
         
         public long memoryBefore { get; set; }
         public long memoryAfter { get; set; }
-        public long elapsedMilliseconds { get; set; }
+        public double elapsedMilliseconds { get; set; }
 
         public Interval[] dataBefore { get; set; }
         public Interval[] dataAfter { get; set; }

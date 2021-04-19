@@ -24,7 +24,7 @@ namespace FuzzySortOfIntervals.Sorters
             for (var i = p; i < end; i++)
             {
                 var current = intervals[i];
-                if (current.GetStart().CompareTo(intersection.GetStart()) >= 0) continue;
+                if (current.Start.CompareTo(intersection.Start) >= 0) continue;
                 index += 1;
                 Swap(ref intervals, index, i);
             }

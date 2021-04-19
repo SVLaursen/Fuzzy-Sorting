@@ -8,16 +8,13 @@ namespace FuzzySortOfIntervals.Sorters
     {
         public void FuzzySort(List<Interval> intervals, int start, int end)
         {
-            while (true)
-            {
-                if (start >= end) return;
-                var intersection = FindIntersectionWithRandomPivot(intervals, start, end);
-                var splitEndIndex = PartitionRight(intervals, intersection, start, end);
-                var splitStartIndex = PartitionLeftMiddle(intervals, intersection, splitEndIndex, start, end);
+            if (start >= end) return;
+            var intersection = FindIntersectionWithRandomPivot(intervals, start, end);
+            var splitEndIndex = PartitionRight(intervals, intersection, start, end);
+            var splitStartIndex = PartitionLeftMiddle(intervals, intersection, splitEndIndex, start, end);
 
-                FuzzySort(intervals, start, splitStartIndex - 1);
-                start = splitEndIndex + 1;
-            }
+            FuzzySort(intervals, start, splitStartIndex - 1);
+            FuzzySort(intervals, splitEndIndex + 1, end);
         }
 
         private int PartitionRight(List<Interval> intervals, Interval intersection, int start, int end)
@@ -28,7 +25,7 @@ namespace FuzzySortOfIntervals.Sorters
             for (var i = start; i <= end - 1; i++)
             {
                 var current = intervals[i];
-                if (current.GetStart().CompareTo(intersection.GetStart()) > 0) continue;
+                if (current.Start.CompareTo(intersection.Start) > 0) continue;
                 index += 1;
                 Swap(ref intervals, index, i);
             }
@@ -37,19 +34,19 @@ namespace FuzzySortOfIntervals.Sorters
             return index + 1;
         }
 
-        private int PartitionLeftMiddle(List<Interval> intervals, Interval intersection, int right, int p, int end)
+        private int PartitionLeftMiddle(List<Interval> intervals, Interval intersection, int r, int p, int end)
         {
             var index = p - 1;
-            if (intervals == null || intersection == null || right == -1 || p > end || end > 0) return -1;
+            if (intervals == null || intersection == null || r == -1 || p > end || end > 0) return -1;
 
-            for (var i = p; i <= right - 1; i++)
+            for (var i = p; i <= r - 1; i++)
             {
                 var current = intervals[i];
-                if (current.GetEnd().CompareTo(intersection.GetEnd()) >= 0) continue;
+                if (current.End.CompareTo(intersection.End) >= 0) continue;
                 index += 1;
                 Swap(ref intervals, index, i);
             }
-            Swap(ref intervals, index + 1, right);
+            Swap(ref intervals, index + 1, r);
             return index + 1;
         }
     }

@@ -17,19 +17,19 @@ namespace FuzzySortOfIntervals.Sorters
             var pivot = intervals[randomIndex];
 
             Swap(ref intervals, randomIndex, end);
-            var intersection = new Interval(pivot.GetStart(), pivot.GetEnd(), 9999);
+            var intersection = new Interval(pivot.Start, pivot.End, 9999);
 
             for (var i = start; i <= end - 1; i++)
             {
                 var current = intervals[i];
                 
-                if (current.GetEnd().CompareTo(intersection.GetStart()) > 0 ||
-                    current.GetStart().CompareTo(intersection.GetEnd()) < 0) continue;
+                if (current.End.CompareTo(intersection.Start) > 0 ||
+                    current.Start.CompareTo(intersection.End) < 0) continue;
                 
-                if(current.GetStart().CompareTo((intersection.GetStart())) > 0)
-                    intersection.SetStart(current.GetStart());
-                if(current.GetEnd().CompareTo(intersection.GetEnd()) < 0)
-                    intersection.SetEnd(current.GetEnd());
+                if(current.Start.CompareTo(intersection.Start) > 0)
+                    intersection.Start = current.Start;
+                if(current.End.CompareTo(intersection.End) < 0)
+                    intersection.End = current.End;
             }
 
             return intersection;

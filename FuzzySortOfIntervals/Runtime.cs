@@ -183,13 +183,13 @@ namespace FuzzySortOfIntervals
             result.memoryAfter = afterMem;
             result.dataAfter = items.ToArray();
             result.name = $"FuzzySortWith{items.Count}Entries";
-            result.elapsedMilliseconds = timer.ElapsedMilliseconds;
+            result.elapsedMilliseconds = timer.Elapsed.TotalMilliseconds;
             
             DataHandler.ExportDataObjectToJSON(result, result.name);
 
             Console.WriteLine("!! Algorithm Complete !!");
             Console.WriteLine("-> Algorithm sorted {0} objects", items.Count);
-            Console.WriteLine("-> The procedure took {0}ms", timer.ElapsedMilliseconds);
+            Console.WriteLine("-> The procedure took {0}ms", timer.Elapsed.TotalMilliseconds);
             Console.WriteLine("-> Results have been saved to your desktop with the filename: {0}", result.name);
             Console.WriteLine("--------------------------------------------------------------------------------");
         }
@@ -227,13 +227,13 @@ namespace FuzzySortOfIntervals
             result.memoryAfter = afterMem;
             result.dataAfter = items.ToArray();
             result.name = $"QuickSortWith{items.Count}Entries";
-            result.elapsedMilliseconds = timer.ElapsedMilliseconds;
+            result.elapsedMilliseconds = timer.Elapsed.TotalMilliseconds;
             
             DataHandler.ExportDataObjectToJSON(result, result.name);
 
             Console.WriteLine("!! Algorithm Complete !!");
             Console.WriteLine("-> Algorithm sorted {0} objects", items.Count);
-            Console.WriteLine("-> The procedure took {0}ms", timer.ElapsedMilliseconds);
+            Console.WriteLine("-> The procedure took {0}ms", timer.Elapsed.TotalMilliseconds);
             Console.WriteLine("-> Results have been saved to your desktop with the filename: {0}", result.name);
             Console.WriteLine("--------------------------------------------------------------------------------");
         }
@@ -271,13 +271,13 @@ namespace FuzzySortOfIntervals
             result.memoryAfter = afterMem;
             result.dataAfter = items.ToArray();
             result.name = $"BubbleSortWith{items.Count}Entries";
-            result.elapsedMilliseconds = timer.ElapsedMilliseconds;
+            result.elapsedMilliseconds = timer.Elapsed.TotalMilliseconds;
             
             DataHandler.ExportDataObjectToJSON(result, result.name);
 
             Console.WriteLine("!! Algorithm Complete !!");
             Console.WriteLine("-> Algorithm sorted {0} objects", items.Count);
-            Console.WriteLine("-> The procedure took {0}ms", timer.ElapsedMilliseconds);
+            Console.WriteLine("-> The procedure took {0}ms", timer.Elapsed.TotalMilliseconds);
             Console.WriteLine("-> Results have been saved to your desktop with the filename: {0}", result.name);
             Console.WriteLine("--------------------------------------------------------------------------------");
         }

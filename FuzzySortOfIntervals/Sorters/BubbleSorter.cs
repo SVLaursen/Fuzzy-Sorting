@@ -16,7 +16,7 @@ namespace FuzzySortOfIntervals.Sorters
                 var swapped = false;
                 for (var j = 0; j < i; j++)
                 {
-                    if (intervals[j].GetStart() <= intervals[j + 1].GetStart()) continue;
+                    if (intervals[j].Start <= intervals[j + 1].Start) continue;
                     Swap(ref intervals, j, j + 1);
                     swapped = true;
                 }
