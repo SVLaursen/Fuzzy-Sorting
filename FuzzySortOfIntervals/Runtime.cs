@@ -12,6 +12,7 @@ namespace FuzzySortOfIntervals
     public static class Runtime
     {
         private static List<Interval> _items = new List<Interval>();
+        private static int _iterations;
         
         public static void ChooseAlgorithm()
         {
@@ -83,6 +84,8 @@ namespace FuzzySortOfIntervals
                 Console.WriteLine("No test data found, please generate the data before running");
                 return;
             }
+
+            InputIterationAmount();
             
             Console.WriteLine("-> RUNNING ALL SORTING ALGORITHMS!");
             var fuzzyThread = new Thread(PerformFuzzySortThreaded);
@@ -153,6 +156,9 @@ namespace FuzzySortOfIntervals
         
         private static void PerformFuzzySort(bool threaded = false)
         {
+            if(!threaded)
+                InputIterationAmount();
+
             Console.WriteLine(">>> Initializing Fuzzy Sort Algorithm <<<");
             var result = new AlgorithmResults();
             var items = _items.ToList();
@@ -174,7 +180,9 @@ namespace FuzzySortOfIntervals
             var timer = Stopwatch.StartNew();
             Console.WriteLine("-> Running Sorting Algorithm...");
             
-            fuzzy.FuzzySort(items, 0, items.Count - 1);
+            for(var i = 0; i < _iterations; i++)
+                fuzzy.FuzzySort(items, 0, items.Count - 1);
+            
             timer.Stop();
             
             var afterMem = threaded ? GC.GetAllocatedBytesForCurrentThread() : GC.GetTotalMemory(false);
@@ -196,6 +204,9 @@ namespace FuzzySortOfIntervals
 
         private static void PerformQuickSort(bool threaded = false)
         {
+            if(!threaded)
+                InputIterationAmount();
+            
             Console.WriteLine(">>> Initializing Quick Sort Algorithm <<<");
             var result = new AlgorithmResults();
             var items = _items.ToList();
@@ -217,8 +228,10 @@ namespace FuzzySortOfIntervals
             var timer = Stopwatch.StartNew();
             
             Console.WriteLine("-> Running Sorting Algorithm...");
-
-            quick.Sort(items, 0, items.Count - 1);
+            
+            for(var i = 0; i < _iterations; i++)
+                quick.Sort(items, 0, items.Count - 1);
+            
             timer.Stop();
             
             var afterMem = threaded ? GC.GetAllocatedBytesForCurrentThread() : GC.GetTotalMemory(false);
@@ -240,6 +253,9 @@ namespace FuzzySortOfIntervals
         
         private static void PerformBubbleSort(bool threaded = false)
         {
+            if(!threaded)
+                InputIterationAmount();
+            
             Console.WriteLine(">>> Initializing Bubble Sort Algorithm <<<");
             var result = new AlgorithmResults();
             var items = _items.ToList();
@@ -262,7 +278,9 @@ namespace FuzzySortOfIntervals
             
             Console.WriteLine("-> Running Sorting Algorithm...");
             
-            bubble.Sort(items);
+            for(var i = 0; i < _iterations; i++)
+                bubble.Sort(items);
+            
             timer.Stop();
             
             var afterMem = threaded ? GC.GetAllocatedBytesForCurrentThread() : GC.GetTotalMemory(false);
@@ -280,6 +298,24 @@ namespace FuzzySortOfIntervals
             Console.WriteLine("-> The procedure took {0}ms", timer.Elapsed.TotalMilliseconds);
             Console.WriteLine("-> Results have been saved to your desktop with the filename: {0}", result.name);
             Console.WriteLine("--------------------------------------------------------------------------------");
+        }
+
+        private static void InputIterationAmount()
+        {
+            var active = true;
+
+            while (active)
+            {
+                Console.WriteLine(">>> Please input the amount of iterations you wish to run on the data");
+                var input = Console.ReadLine();
+
+                if (TryParse(input, out int number))
+                {
+                    _iterations = number;
+                    active = false;
+                }
+                else Console.WriteLine("!!!! Not a valid number !!!!");
+            }
         }
     }
 }
